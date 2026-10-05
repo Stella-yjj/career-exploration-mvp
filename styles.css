@@ -59,3 +59,33 @@ input::placeholder,textarea::placeholder{color:#8a9bb0!important}
 .skill-detail-list section,.path-step,.jd-grid section,.jd-common{background:#f5f9ff!important;border-color:#d8e5f2!important;color:#243850!important}.skill-detail-list section p,.path-step span,.jd-grid section p,.jd-common p{color:#5e7189!important}.skill-detail-list section h4,.jd-grid section h4,.jd-common b{color:#1d4f91!important}.profile-tags span{background:#eef5ff!important;border-color:#cbdced!important;color:#2b5f9e!important}
 .ai-result-actions{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px;padding-top:18px;border-top:1px solid #d5e2f0}.ai-result-actions>div{display:grid;gap:5px}.ai-result-actions small{display:block;color:#63768e;line-height:1.55}.ai-result-actions .primary-btn{flex:0 0 auto}
 @media(max-width:800px){.workspace-welcome h1{font-size:36px}.ai-result-actions{align-items:stretch;flex-direction:column}.ai-result-actions .primary-btn{width:100%}}
+
+/* V1.4: contrast audit for every exploration card and answer option */
+.wizard-screen,.portrait-layout,.mode-head,.sequence-head,.final-head,.records-head{color:#15233b}
+.wizard-copy h1,.wizard-copy h2,.portrait-layout>div>h2,.profile-card legend,.scenario-question legend,.portrait-card p,.mode-card h3,.task-question h3,.feedback-card h2{color:#172b47}
+.wizard-copy p,.mode-head p,.sequence-head p,.final-head p,.records-head p{color:#61738b!important}
+.scenario-question{background:#f7faff!important;border-color:#d7e3f0!important;color:#172b47!important}
+.scenario-question span{background:#fff!important;border-color:#cfdcea!important;color:#334a66!important}
+.scenario-question span:hover{background:#eef6ff!important;border-color:#78a8df!important;color:#173f73!important}
+.scenario-question input:checked+span{background:#e1efff!important;border-color:#4485d3!important;color:#123f78!important;box-shadow:0 0 0 3px rgba(45,111,215,.09)}
+.portrait-card{background:#fff!important;border-color:#d6e2ef!important;color:#172b47!important;box-shadow:var(--shadow)}
+.portrait-card>div:not(.portrait-confirm){border-bottom-color:#e1e9f2!important}
+.portrait-card small{color:#2768bd!important}.portrait-card p{color:#334a66!important}.portrait-confirm>p{color:#172b47!important;font-weight:800}
+.preference-list,.preference-list .scenario-question{color:#172b47!important}
+.preference-list .scenario-question label{color:#334a66!important}
+.clarity-options b,.preference-test p,.choice-question legend,.task-question li,.evidence-grid strong,.rubric-card h3,.rubric-card li{color:#203651!important}
+.clarity-options small,.evidence-grid small,.reference-answer p,.task-brief,.task-aside dd,.action-card p{color:#61738b!important}
+.mode-card p,.role-card p,.summary-card p,.record-card p,.record-card small,.career-facts p{color:#607188!important}
+.why-card li,.case-card p,.task-question ol,.rubric-card,.reference-answer,.feedback-card>p{color:#334a66!important}
+.skill-detail-list section p,.path-step span,.jd-grid section p,.jd-common p{color:#52677f!important}
+.jd-grid em,.jd-note{color:#6c7f96!important;border-color:#d9e4ef!important}
+.path-step b,.jd-grid small{color:#2768bd!important}.path-step:not(:last-child):after{color:#4d85c8!important}
+.score-badge{background:#e2f5ef!important;color:#174c3e!important}.result-icon{background:#e2f5ef!important;color:#174c3e!important}
+.final-recommendation{background:#eef5ff!important;border:1px solid #ccdeef!important;color:#172b47!important}.final-recommendation p{color:#586d85!important}
+.verdict,.role-card b{background:#e2f5ef!important;color:#1c6b56!important}
+.privacy,.voice-note,.input-tools{color:#74859a!important}
+.primary-btn{color:#fff!important}.brand-mark,.floating-ai-btn{color:#fff!important}
+.wizard-progress span{background:#fff!important;border-color:#cbd9e8!important;color:#6f8198!important}.wizard-progress span.active{background:#2d6fd7!important;border-color:#2d6fd7!important;color:#fff!important}.wizard-progress span.done{background:#e2f5ef!important;border-color:#9bd4c1!important;color:#216b58!important}.wizard-progress i{background:#cddbea!important}
+.next-panel{background:#eef5ff!important;border:1px solid #ccdeef!important;color:#172b47!important}.next-panel p{color:#5d7189!important}.next-panel .step-label span{background:#2d6fd7!important;color:#fff!important}
+.career-facts,.career-facts>div{border-color:#d9e4ef!important}.career-facts small,.case-card span,.final-recommendation>span{color:#2768bd!important}
+.role-detail-grid article,.related-roles{background:#fff!important;border-color:#d8e4f0!important;color:#172b47!important}.role-detail-grid article>span,.related-roles>span{color:#2768bd!important}.role-detail-grid p,.role-detail-grid li{color:#536980!important}.related-roles button{background:#eef5ff!important;border-color:#cbdced!important;color:#2b5f9e!important}.related-roles button:hover{background:#e1efff!important;border-color:#5b94d6!important;color:#174f91!important}
