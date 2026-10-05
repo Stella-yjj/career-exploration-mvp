@@ -273,3 +273,37 @@ const renderVerifyHomeBase=renderVerifyHome;renderVerifyHome=function(){if(verif
 async function generateAiPlanSafe(e){e.preventDefault();const target=$('#aiPlanTarget').value.trim(),deadline=$('#aiPlanDeadline').value,period=$('#aiPlanPeriod').value,btn=$('#aiPlanGenerate'),preview=$('#aiPlanPreview');btn.disabled=true;btn.textContent='正在生成…';preview.innerHTML='<div class="ai-loading"><i></i><span>正在生成精简计划…</span></div>';const prompt=`目标：${target}\n截止日期：${deadline}\n计划范围：${period}\n生成5到8项由浅入深、可以执行的任务。日期不得晚于截止日期。`;let lastError;for(let attempt=0;attempt<2;attempt++){try{const response=await fetch(AI_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,format:'plan'})}),data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||`请求失败（${response.status}）`);if(!data.answer)throw new Error('模型本次没有返回计划内容');const raw=typeof data.answer==='string'?data.answer.replace(/```json|```/g,'').trim():data.answer,parsed=typeof raw==='string'?JSON.parse(raw):raw,plans=Array.isArray(parsed)?parsed:parsed?.plans;if(!Array.isArray(plans)||!plans.length)throw new Error('返回的计划格式不完整');aiPlanDraft=plans.slice(0,8).map((x,i)=>({title:String(x.title||`准备任务${i+1}`),date:String(x.date||deadline),time:String(x.time||'19:00'),notes:String(x.notes||''),category:'学习',priority:'中'}));renderAiPlanPreview();lastError=null;break}catch(err){lastError=err;if(attempt===0)continue}}if(lastError)preview.innerHTML=`<div class="ai-error"><b>计划暂时没有生成成功</b><p>${escapeHtml(lastError.message)}</p><small>系统已经自动重试一次，请稍后再试。已有计划不会受到影响。</small></div>`;btn.disabled=false;btn.textContent='重新生成计划'}
 if($('#aiPlanForm'))$('#aiPlanForm').onsubmit=generateAiPlanSafe;
 
+/* Make a normal AI career answer actionable and recoverable. */
+function addAiAnswerActions(){
+  const result=$('#aiResult'),answer=$('#aiAnswer');
+  if(!result||result.hidden||!answer||answer.querySelector('.ai-error')||!answer.textContent.trim())return;
+  result.querySelector('.ai-result-actions')?.remove();
+  const actions=document.createElement('div');
+  actions.className='ai-result-actions';
+  actions.innerHTML='<div><b>下一步去哪里？</b><small>这份回答不会自动创建任务。你可以把它转成计划，编辑确认后再加入日历与成长档案。</small></div><button type="button" class="primary-btn" id="answerToPlanBtn">转为可编辑行动计划 →</button>';
+  result.appendChild(actions);
+  $('#answerToPlanBtn').onclick=()=>{
+    setupPlanBuilder();
+    const question=$('#aiCareerInput')?.value.trim()||'下一阶段职业探索';
+    const deadline=new Date();
+    deadline.setDate(deadline.getDate()+30);
+    $('#aiPlanTarget').value=question.slice(0,80);
+    $('#aiPlanDeadline').value=formatDate(deadline);
+    $('#aiPlanPeriod').value='下一个月';
+    $('#aiPlanBuilder').scrollIntoView({behavior:'smooth',block:'start'});
+    setTimeout(()=>$('#aiPlanTarget').focus(),350);
+  };
+}
+function restoreLastAiAnswer(){
+  const saved=readStore('career_mvp_last_ai_answer',null);
+  if(!saved?.answer||!$('#aiResult')||!$('#aiResult').hidden)return;
+  $('#aiCareerInput').value=saved.question||'';
+  $('#aiCharCount').textContent=$('#aiCareerInput').value.length;
+  $('#aiAnswer').innerHTML=escapeHtml(saved.answer).replace(/\n/g,'<br>');
+  $('#aiResult').hidden=false;
+  addAiAnswerActions();
+}
+const aiCareerSubmitBase=$('#aiCareerForm')?.onsubmit;
+if(aiCareerSubmitBase)$('#aiCareerForm').onsubmit=async e=>{await aiCareerSubmitBase(e);addAiAnswerActions()};
+restoreLastAiAnswer();
+
